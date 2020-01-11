@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Canvas</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div style="display: none">
+<img id="img" src="img/empty_canvas.png" alt="Empty Canvas"/>
+</div>
+<div style="display: none">
+    <img id="img5" src="img/choose_graphics.png" alt="Choose graphics"/>
+</div>
+<div class="container-fluid">
+    <!--    ---------------------- Navigation -------------------------- -->
+    <nav class="row">
+            <span class="col-12 choose_graphics">Choose Graphics <button type="button" class="btn btn-outline-primary" id="download" onclick="download()">Download</button></span>
+            <div class="col-12 white_line"></div>
+            <div class="col-6 col-xl-3 choose_image">
+                <a href="#" class="thumbnail" onclick="choice(img1); replace();">
+                    <img id="img1" src="img/mountains.jpg" alt="mountains">
+                </a>
+            </div>
+            <div class="col-6 col-xl-3 choose_image">
+                <a href="#" class="thumbnail" onclick="choice(img2); replace();">
+                    <img id="img2" src="img/kangaroos.jpg" alt="kangaroos">
+                </a>
+            </div>
+            <div class="col-6 col-xl-3 choose_image">
+                <a href="#" class="thumbnail" onclick="choice(img3); replace();">
+                    <img id="img3" src="img/fox.jpg" alt="fox">
+                </a>
+            </div>
+            <div class="col-6 col-xl-3 choose_image">
+                <a href="#" class="thumbnail">
+                    <div id="upload">
+                        <input type="file" accept="image/*" style="height: 100%" id="input_upload" onchange="upload(input_upload)">
+                    </div>
+                    <img id="upload_your_graphics" src="img/upload_your_graphics.png" alt="upload your graphics">
+                </a>
+            </div>
+    </nav>
+    <!--    ---------------------- Canvas -------------------------- -->
+    <div class="row">
+        <div class="col-xl-7">
+            <canvas id="canvas">Your browser does not support Canvas.</canvas>
+        </div>
+    <!--    ---------------------- Form -------------------------- -->
+        <div class="col-xl-5">
+            <div class="form_img">
+                    <fieldset>
+                        <legend>Choose Color</legend>
+                        <div class="choose_color form-group">
+                            <div class="custom-control custom-radio">
+                                <input type="radio" id="no_change" name="customRadio" class="custom-control-input" checked="">
+                                <label class="custom-control-label" for="no_change">No Change</label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" id="red" name="customRadio" class="custom-control-input">
+                                <label class="custom-control-label" for="red">Red</label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" id="green" name="customRadio" class="custom-control-input">
+                                <label class="custom-control-label" for="green">Green</label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" id="blue" name="customRadio" class="custom-control-input">
+                                <label class="custom-control-label" for="blue">Blue</label>
+                            </div>
+                        </div>
+                        <legend>Transparency</legend>
+                        <div class="transparency form-group">
+                            <div class="custom-control custom-radio">
+                                <input type="radio" id="transparency_0" name="customRadio2" class="custom-control-input" checked="">
+                                <label class="custom-control-label" for="transparency_0">0%</label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" id="transparency_25" name="customRadio2" class="custom-control-input">
+                                <label class="custom-control-label" for="transparency_25">25%</label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" id="transparency_50" name="customRadio2" class="custom-control-input">
+                                <label class="custom-control-label" for="transparency_50">50%</label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" id="transparency_75" name="customRadio2" class="custom-control-input">
+                                <label class="custom-control-label" for="transparency_75">75%</label>
+                            </div>
+                        </div>
+                        <legend>Other Options</legend>
+                        <div class="other_properties form-group">
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="color_desaturation">
+                                <label class="custom-control-label" for="color_desaturation">Color Desaturation</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="invert_color">
+                                <label class="custom-control-label" for="invert_color">Invert Color</label>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-outline-light" id="refresh" onclick="change_my_img();">Refresh</button>
+                        <button type="button" class="btn btn-outline-light" id="reset" onclick="reset();">Reset</button>
+                        <div class="col-12 white_line" style="height: 8px"></div>
+                        <div class="draw_something">
+                            <legend>Draw Something</legend>
+                            <div class="drawing form-group">
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="square_black">
+                                    <label class="custom-control-label" for="square_black">Square Black</label>
+                                </div>
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="square_color">
+                                    <label class="custom-control-label" for="square_color">Square Color</label>
+                                </div>
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="heart">
+                                    <label class="custom-control-label" for="heart">Heart</label>
+                                </div>
+                                <button type="button" class="btn btn-outline-light" id="draw" onclick="draw()">Draw</button>
+                                <button type="button" class="btn btn-outline-light" id="clear" onclick="change_my_img(); clear_draw();">Clear</button>
+                            </div>
+                        </div>
+                    </fieldset>
+            </div>
+        </div>
+    </div>
+    <!--    ---------------------- Footer -------------------------- -->
+    <div class="row">
+        <footer class="col-12">Damian Stachelek project Canvas.</footer>
+    </div>
+</div>
+<script src="js/scripts.js"></script>
+</body>
+</html>
